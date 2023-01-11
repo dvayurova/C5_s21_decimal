@@ -1,0 +1,23 @@
+78%: Checks: 102, Failures: 22, Errors: 0
+unit_tests.c:215:F:case_add:add_test_11:0: Assertion 'res_float == res_origin' failed: res_float == 6.29535e+19, res_origin == 16.75
+unit_tests.c:230:F:case_add:add_test_12:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+19, res_origin == -1232.77
+unit_tests.c:245:F:case_add:add_test_13:0: Assertion 'res_float == res_origin' failed: res_float == -3.13728e+19, res_origin == -1235.23
+unit_tests.c:260:F:case_add:add_test_14:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+16, res_origin == -93.9977
+unit_tests.c:275:F:case_add:add_test_15:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+15, res_origin == -940.3
+unit_tests.c:290:F:case_add:add_test_16:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+15, res_origin == -0.940066
+unit_tests.c:305:F:case_add:add_test_17:0: Assertion 'res_float == res_origin' failed: res_float == -3.15807e+18, res_origin == 1.0831
+unit_tests.c:320:F:case_add:add_test_18:0: Assertion 'res_float == res_origin' failed: res_float == -3.15807e+18, res_origin == -112.964
+unit_tests.c:335:F:case_add:add_test_19:0: Assertion 'res_float == res_origin' failed: res_float == -6.29535e+19, res_origin == -1052.02
+unit_tests.c:350:F:case_add:add_test_20:0: Assertion 'res_float == res_origin' failed: res_float == -6.29535e+19, res_origin == -12140
+unit_tests.c:877:F:case_add:s21_test_decimal_add_13:0: Assertion 'equal == 1' failed: equal == 0, 1 == 1
+unit_tests.c:930:F:case_add:s21_test_decimal_add_16:0: Assertion 'equal == 1' failed: equal == 0, 1 == 1
+unit_tests.c:1113:F:case_add:s21_test_decimal_add_28:0: Assertion 'res.bits[2] == etalon.bits[2]' failed: res.bits[2] == 2956914836, etalon.bits[2] == 2956914541
+unit_tests.c:1135:F:case_add:s21_test_decimal_add_29:0: Assertion 'res.bits[0] == etalon.bits[0]' failed: res.bits[0] == 2370122648, etalon.bits[0] == 3056186842
+unit_tests.c:1165:F:case_add:s21_test_decimal_add_30:0: Assertion 'origin.bits[2] == result.bits[2]' failed: origin.bits[2] == 431584447, result.bits[2] == 983040
+unit_tests.c:1316:F:case_add:s21_test_decimal_add_simple_8:0: Assertion 'equal == 1' failed: equal == 0, 1 == 1
+unit_tests.c:1373:F:case_add:s21_test_decimal_add_simple_11:0: Assertion 'equal == 1' failed: equal == 0, 1 == 1
+unit_tests.c:1497:F:case_add:s21_test_decimal_add_simple_23:0: Assertion 'res.bits[2] == etalon.bits[2]' failed: res.bits[2] == 2956914836, etalon.bits[2] == 2956914541
+unit_tests.c:416:F:case_add:add_test_24:0: Assertion 'res.bits[3] == res1.bits[3]' failed: res.bits[3] == 3145728, res1.bits[3] == 1048576
+unit_tests.c:478:F:case_add:add_test_28:0: Assertion 'fabsl(float_res - got_float) < 1e-06' failed: got_float == -4489.38, float_res == -4489.38, 1e-06 == 1e-06
+unit_tests.c:1571:F:case_add:s21_add_max_34:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 4294967293
+unit_tests.c:1597:F:case_add:s21_add_max_35:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 4294967290

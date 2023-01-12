@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-
+enum { LOW, MIDLE, HIGHE, SCALE };
 typedef struct {
   unsigned int bits[4];
 } s21_decimal;
@@ -106,9 +106,10 @@ void binary_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *res) {
 }
 
 void copy_decimal(s21_decimal src, s21_decimal *dst) {
+
   dst->bits[0] = src.bits[0];
   dst->bits[1] = src.bits[1];
-  dst->bits[2] = src.bits[3];
+  dst->bits[2] = src.bits[2];
   dst->bits[3] = src.bits[3];
 }
 
@@ -265,11 +266,13 @@ void masCreat(unsigned int *arr, s21_decimal x) {
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   int res_code = 0, sign_val1 = 0, sign_val2 = 0, res_scale = 0;
+  memset(result, 0, sizeof(*result));
   sign_val1 = getSign(value_1);
   sign_val2 = getSign(value_2);
-  if (is_zero(value_1))
+  if (is_zero(value_1)) {
     copy_decimal(value_2, result);
-  else if (is_zero(value_2))
+    printf("\n=============!!!!!!==============\n");
+  } else if (is_zero(value_2))
     copy_decimal(value_1, result);
   else {
     if (getScale(value_1) != getScale(value_2))
@@ -312,13 +315,104 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   setScale(result, res_scale);
   return res_code; // пока без обработки ошибок
 }
+int float_getScale(float value) {
+  int res = 0;
+  unsigned int fbits = *((unsigned int *)&value);
+  int index = 31;
+  for (unsigned int mask = 0x80000000; index > 22; mask >>= 1, index--) {
+    if (!!(fbits & mask) && (index != 31))
+      res += pow(2, index - 23);
+  }
+  return res - 127;
+}
+int s21_from_float_to_decimal(float src, s21_decimal *dst) {
+  int resCode = 0, f_scale = 0;
+  if (src != NAN && src != INFINITY && src != 0) {
+    if (src < 0) {
+      src *= -1;
+      setSign(dst, 1);
+    } else
+      setSign(dst, 0);
+    int binExp = float_getScale(src);
+    if (binExp > 95)
+      resCode = 1;
+    if (src < 1e8 && !resCode) {
+      for (; !((int)src); src *= 10, f_scale++) {
+      }
+      for (int i = 0; i < 7; i++) {
+        src *= 10;
+        f_scale++;
+      }
+      binExp = float_getScale(src);
+    }
+    if (f_scale > 28 || binExp < -94)
+      resCode = 1;
+    if (!resCode) {
+      setBit(dst, binExp, 1);
+      unsigned int fbits = *((unsigned int *)&src);
+      for (unsigned int mask = 0x400000; mask; mask >>= 1) {
+        binExp--;
+        if (!!(fbits & mask))
+          setBit(dst, binExp, 1);
+      }
+      setScale(dst, f_scale);
+    }
+  } else
+    resCode = (src == 0) ? 0 : 1;
+  return resCode;
+}
+
+int s21_from_decimal_to_float(s21_decimal src, float *dst) {
+  int resCode = 0;
+  *dst = 0;
+  for (int i = 0; i < 96; i++) {
+    if (getBit(src, i))
+      *dst += pow(2, i);
+  }
+  *dst *= pow(10, (-1 * (getScale(src))));
+  if (getSign(src))
+    *dst *= -1;
+  return resCode;
+}
+
+int s21_from_int_to_decimal(int src, s21_decimal *dst) {
+  dst->bits[LOW] = 0;
+  dst->bits[MIDLE] = 0;
+  dst->bits[HIGHE] = 0;
+  dst->bits[SCALE] = 0;
+  if (src < 0) {
+    setSign(dst, 1);
+    src *= -1;
+  }
+  dst->bits[LOW] = src;
+  return 0;
+}
+
+int s21_from_decimal_to_int(s21_decimal src, int *dst) {
+  int resCode = 0;
+  if (first_bit(src) > 31)
+    resCode = 1;
+  else {
+    *dst = 0;
+    for (int i = 0; i < 96; i++) {
+      if (getBit(src, i))
+        *dst += pow(2, i);
+    }
+    *dst *= pow(10, (getScale(src) * -1));
+    if (getSign(src))
+      *dst *= -1;
+  }
+  return resCode;
+}
 
 int main() {
-  s21_decimal dec;
+  // float one = -940.3;
+  s21_decimal dec = {0};
+  // s21_from_float_to_decimal(one, &dec);
   dec.bits[0] = 0;
   dec.bits[1] = 0;
   dec.bits[2] = 0;
-  dec.bits[3] = 0b00000000000001100000000000000000;
+  dec.bits[3] = 0b10000000000000000000000000000000;
   for (int i = 95; i >= 0; i--) {
     printf("%d", getBit(dec, i));
   }
@@ -328,13 +422,16 @@ int main() {
   }
   printf("\n sclae val1 =%d", getScale(dec));
   printf("\n sign val1 =%d", getSign(dec));
+
   int sign = getSign(dec) ? -1 : 1;
   printf("\n VALUE1=%f\n", sign * (dec.bits[0] * pow(10, -1 * getScale(dec))));
-  s21_decimal val2;
+  // float two = 0.000234;
+  s21_decimal val2 = {0};
+  // s21_from_float_to_decimal(two, &val2);
   val2.bits[0] = 0;
   val2.bits[1] = 0;
   val2.bits[2] = 0;
-  val2.bits[3] = 0b00000000000001100000000000000000;
+  val2.bits[3] = 0b10000000000000000000000000000000;
   // 0b00000000000001100000000000000000 = 6
   for (int i = 95; i >= 0; i--) {
     printf("%d", getBit(val2, i));
@@ -343,21 +440,29 @@ int main() {
   for (int i = 127; i >= 96; i--) {
     printf("%d", getBit(val2, i));
   }
-  sign = getSign(val2) ? -1 : 1;
+  int sign_2 = getSign(val2) ? -1 : 1;
   printf("\n sclae val2 =%d", getScale(val2));
   printf("\n sign val2 =%d", getSign(val2));
   printf("\n VALUE2=%f\n",
-         sign * (val2.bits[0] * pow(10, -1 * getScale(val2))));
+         sign_2 * (val2.bits[0] * pow(10, -1 * getScale(val2))));
 
   s21_decimal res = {0};
   printf("\n s21_add code result = %d\n", s21_add(dec, val2, &res));
   for (int i = 95; i >= 0; i--) {
     printf("%d", getBit(res, i));
   }
-  sign = getSign(res) ? -1 : 1;
-  printf("\n sclae res =%d", getScale(res));
-  printf("\n sign res =%d\n", getSign(res));
-  printf("\n SUMM=%f\n", sign * (res.bits[0] * pow(10, -1 * getScale(res))));
+  printf("\nres.bits[3]:\n");
+  for (int i = 127; i >= 96; i--) {
+    printf("%d", getBit(res, i));
+  }
+  // float result = 0;
+  // s21_from_decimal_to_float(res, &result);
+  // printf("\nresult = %f\n", result);
+
+  // sign = getSign(res) ? -1 : 1;
+  // printf("\n sclae res =%d", getScale(res));
+  // printf("\n sign res =%d\n", getSign(res));
+  // printf("\n SUMM=%f\n", sign * (res.bits[0] * pow(10, -1 * getScale(res))));
 
   // s21_decimal c = {{0, 0, 0, ~(INT_MAX)}};
   // s21_decimal d = {{0, 0, 0, ~(INT_MAX)}};

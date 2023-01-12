@@ -13,3 +13,13 @@ unit_tests.c:416:F:case_add:add_test_24:0: Assertion 'res.bits[3] == res1.bits[3
 unit_tests.c:478:F:case_add:add_test_28:0: Assertion 'fabsl(float_res - got_float) < 1e-06' failed: got_float == -4489.38, float_res == -4489.38, 1e-06 == 1e-06
 unit_tests.c:1571:F:case_add:s21_add_max_34:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 4294967293
 unit_tests.c:1597:F:case_add:s21_add_max_35:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 4294967290
+
+
+
+
+
+96%: Checks: 102, Failures: 4, Errors: 0
+unit_tests.c:1135:F:case_add:s21_test_decimal_add_29:0: Assertion 'res.bits[0] == etalon.bits[0]' failed: res.bits[0] == 1693625562, etalon.bits[0] == 3056186842
+unit_tests.c:416:F:case_add:add_test_24:0: Assertion 'res.bits[3] == res1.bits[3]' failed: res.bits[3] == 3145728, res1.bits[3] == 1048576
+unit_tests.c:1571:F:case_add:s21_add_max_34:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 4294967293
+unit_tests.c:1597:F:case_add:s21_add_max_35:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 4294967290

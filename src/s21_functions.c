@@ -101,13 +101,12 @@ void binary_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *res) {
 void copy_decimal(s21_decimal src, s21_decimal *dst) {
   dst->bits[0] = src.bits[0];
   dst->bits[1] = src.bits[1];
-  dst->bits[2] = src.bits[3];
+  dst->bits[2] = src.bits[2];
   dst->bits[3] = src.bits[3];
 }
 
 int scale_up(s21_decimal *value_smallScale, int bigger_scale,
              int smaller_scale) {
-  printf("\n smaller_scale = %d\n", smaller_scale);
   int is_inf = 0, sign = 0;
   s21_decimal tmp = {0};
   s21_decimal res = {0};
@@ -126,7 +125,6 @@ int scale_up(s21_decimal *value_smallScale, int bigger_scale,
   }
   setScale(value_smallScale, smaller_scale);
   setSign(value_smallScale, sign);
-  printf("\n SCALE UP = %d\n", is_inf);
   return is_inf ? smaller_scale
                 : -1; // возвращает -1 в случае успешного повышения или
                       // smaller_scale в случае переполнения

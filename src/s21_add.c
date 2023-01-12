@@ -14,20 +14,18 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
       res_scale = to_same_scale(&value_1, &value_2);
     else
       res_scale = getScale(value_1);
-    if (sign_val1 == sign_val2) { // оба знака одинаковы
+    if (sign_val1 == sign_val2) {  // оба знака одинаковы
       res_code =
-          binary_sum(value_1, value_2, result); // если переполнение - код 1
+          binary_sum(value_1, value_2, result);  // если переполнение - код 1
       if (sign_val1) {
         setSign(result, sign_val1);
-        if (res_code)
-          res_code = 2; // если переполнение - код 2
+        if (res_code) res_code = 2;  // если переполнение - код 2
       }
-    } else { // знаки разные - вычитаем из большего
+    } else {  // знаки разные - вычитаем из большего
       sub_from_big(value_1, value_2, result, sign_val1, sign_val2);
     }
     setScale(result, res_scale);
   }
-  if (is_zero(*result))
-    setSign(result, 0);
+  if (is_zero(*result)) setSign(result, 0);
   return res_code;
 }

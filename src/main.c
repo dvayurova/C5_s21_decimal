@@ -21,16 +21,13 @@ int setBit(s21_decimal *x, int index, int bit) {
 
 int getSign(s21_decimal d) {
   int sign = 1;
-  if ((d.bits[3] & (1 << 31)) == 0)
-    sign = 0;
+  if ((d.bits[3] & (1 << 31)) == 0) sign = 0;
   return sign;
 }
 
 int setSign(s21_decimal *x, int sign) {
-  if (sign == 0)
-    setBit(x, 127, 0);
-  if (sign == 1)
-    setBit(x, 127, 1);
+  if (sign == 0) setBit(x, 127, 0);
+  if (sign == 1) setBit(x, 127, 1);
   return sign;
 }
 
@@ -39,8 +36,7 @@ int getScale(s21_decimal x) {
   int rez = 0;
   for (int i = 112; i < 117; i++) {
     bit = getBit(x, i);
-    if (bit)
-      rez += pow(2, (i - 112));
+    if (bit) rez += pow(2, (i - 112));
   }
   return rez;
 }
@@ -54,7 +50,7 @@ int setScale(s21_decimal *d, int scale) {
     }
     bit = 1;
   }
-  return bit; // if scale < 0 || > 28 return 0
+  return bit;  // if scale < 0 || > 28 return 0
 }
 
 // binary_sum - алгоритм суммирования положительных целых чисел в двоичной
@@ -74,7 +70,7 @@ int binary_sum(s21_decimal value_1, s21_decimal value_2, s21_decimal *res) {
       tmp = 0;
     }
   }
-  return tmp; // возвращает tmp для отслеживания переполнения
+  return tmp;  // возвращает tmp для отслеживания переполнения
 }
 
 // dop_Code - перевод в дополнительный код (для вычитания)
@@ -85,11 +81,10 @@ void dop_Code(s21_decimal value, s21_decimal *dop_code, int first_index) {
   dop_code->bits[0] += 1;
 }
 
-int first_bit(s21_decimal dec) { // определяет индекс первого ненулевого бита
+int first_bit(s21_decimal dec) {  // определяет индекс первого ненулевого бита
   int first = 0;
   for (int i = 95; i >= 0 && !first; i--) {
-    if (getBit(dec, i))
-      first = i;
+    if (getBit(dec, i)) first = i;
   }
   return first;
 }
@@ -101,12 +96,10 @@ void binary_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *res) {
   int first_Bit = first_bit(value_1);
   dop_Code(value_2, &val2_dop_code, first_Bit);
   binary_sum(value_1, val2_dop_code, res);
-  if (getBit(*res, first_Bit + 1))
-    setBit(res, first_Bit + 1, 0);
+  if (getBit(*res, first_Bit + 1)) setBit(res, first_Bit + 1, 0);
 }
 
 void copy_decimal(s21_decimal src, s21_decimal *dst) {
-
   dst->bits[0] = src.bits[0];
   dst->bits[1] = src.bits[1];
   dst->bits[2] = src.bits[2];
@@ -136,8 +129,8 @@ int scale_up(s21_decimal *value_smallScale, int bigger_scale,
   setSign(value_smallScale, sign);
 
   return is_inf ? smaller_scale
-                : -1; // возвращает -1 в случае успешного повышения или
-                      // smaller_scale в случае переполнения
+                : -1;  // возвращает -1 в случае успешного повышения или
+                       // smaller_scale в случае переполнения
 }
 
 // ф-я выравнивания степеней
@@ -149,8 +142,7 @@ int to_same_scale(s21_decimal *value_1, s21_decimal *value_2) {
     new_scale = scale_up(value_1, scale2, scale1);
   else if (scale1 > scale2)
     new_scale = scale_up(value_2, scale1, scale2);
-  if (new_scale != -1)
-    new_scale = 0; // потом убрать
+  if (new_scale != -1) new_scale = 0;  // потом убрать
   // scale_down(value_2, scale1, new_scale);
   new_scale = getScale(*value_2);
   printf("\n ====val1====\n");
@@ -178,10 +170,10 @@ int to_same_scale(s21_decimal *value_1, s21_decimal *value_2) {
 
 int is_zero(s21_decimal dec) {
   int zero = 0;
-  if (!dec.bits[0] && !dec.bits[1] && !dec.bits[2])
-    zero = 1;
+  if (!dec.bits[0] && !dec.bits[1] && !dec.bits[2]) zero = 1;
   return zero;
 }
+
 int s21_is_equal(s21_decimal value_1, s21_decimal value_2) {
   int res = 0, stop = 0;
   if (is_zero(value_1) && is_zero(value_2))
@@ -192,13 +184,13 @@ int s21_is_equal(s21_decimal value_1, s21_decimal value_2) {
         value_1.bits[2] == value_2.bits[2])
       res = 1;
   } else if (getSign(value_1) == getSign(value_2)) {
-    to_same_scale(&value_1, &value_2); // сравнение после приведения скейлов
+    to_same_scale(&value_1, &value_2);  // сравнение после приведения скейлов
     for (int i = 95; i >= 0 && !stop; i--) {
-      if (getBit(value_1, i) != getBit(value_2, i))
-        stop = 1;
+      if (getBit(value_1, i) != getBit(value_2, i)) stop = 1;
     }
     res = stop ? 0 : 1;
   }
+  printf("\n!!!!!!!RESSSS=%d\n", res);
   return res;
 }
 
@@ -207,27 +199,28 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
   int bit_val1 = 0;
   int bit_val2 = 0;
   if (!s21_is_equal(value_1, value_2)) {
-    printf("\n=======!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!================\n");
-    if (is_zero(value_1))
-      setSign(&value_1, 0);
-    if (is_zero(value_2))
-      setSign(&value_2, 0);
+    if (is_zero(value_1)) setSign(&value_1, 0);
+    if (is_zero(value_2)) setSign(&value_2, 0);
     if (getSign(value_1) && !getSign(value_2))
       res = 1;
     else if (getSign(value_1) == getSign(value_2)) {
       to_same_scale(&value_1, &value_2);
       bit_val1 = first_bit(value_1);
       bit_val2 = first_bit(value_2);
-      printf("\n bit_val1 = %d, bit_val2 = %d \n", bit_val1, bit_val2);
+      printf("\n bit_val1 = %d, bit_val2 = %d\n", bit_val1, bit_val2);
       if (bit_val2 > bit_val1)
         res = 1;
       else if (bit_val2 == bit_val1) {
         for (int i = bit_val2; i >= 0 && !stop; i--) {
           printf("\n i = %d\n", i);
+          // if (getBit(value_2, i) == getBit(value_1, i))
+          //   ;
           if (getBit(value_2, i) > getBit(value_1, i))
-            stop = 1; // если стоп, значит value_2 больше
+            stop = 1;  // если стоп, значит value_2 больше
+          else if (getBit(value_1, i) > getBit(value_2, i))
+            stop = 2;  //  значит value_1 больше
         }
-        res = stop ? 1 : 0;
+        res = stop == 1 ? 1 : 0;
       }
       res = getSign(value_1) ? !res : res;
     }
@@ -237,8 +230,7 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
 
 int s21_is_less_or_equal(s21_decimal value_1, s21_decimal value_2) {
   int res = 0;
-  if (s21_is_less(value_1, value_2) || s21_is_equal(value_1, value_2))
-    res = 1;
+  if (s21_is_less(value_1, value_2) || s21_is_equal(value_1, value_2)) res = 1;
   return res;
 }
 
@@ -251,15 +243,13 @@ int s21_is_greater(s21_decimal value_1, s21_decimal value_2) {
 
 int s21_is_greater_or_equal(s21_decimal value_1, s21_decimal value_2) {
   int res = 0;
-  if (!s21_is_less(value_1, value_2))
-    res = 1;
+  if (!s21_is_less(value_1, value_2)) res = 1;
   return res;
 }
 
 int s21_is_not_equal(s21_decimal value_1, s21_decimal value_2) {
   int res = 0;
-  if (!s21_is_equal(value_1, value_2))
-    res = 1;
+  if (!s21_is_equal(value_1, value_2)) res = 1;
   return res;
 }
 
@@ -268,13 +258,15 @@ void sub_from_big(s21_decimal value_1, s21_decimal value_2, s21_decimal *result,
   setSign(&value_1, 0);
   setSign(&value_2, 0);
   if (s21_is_greater_or_equal(value_1, value_2)) {
+    printf("\n===######===\n");
     binary_sub(value_1, value_2, result);
-    if (sign_val1)
-      setSign(result, sign_val1);
+    if (sign_val1) setSign(result, sign_val1);
   } else {
     binary_sub(value_2, value_1, result);
     if (sign_val2)
-      setSign(result, sign_val2);
+      setSign(result, 0);
+    else
+      setSign(result, 1);
   }
 }
 
@@ -304,22 +296,20 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
       res_scale = getScale(value_1);
       printf("\n====!!!====\n");
     }
-    if (sign_val1 == sign_val2) { // оба знака одинаковы
+    if (sign_val1 == sign_val2) {  // оба знака одинаковы
       res_code =
-          binary_sum(value_1, value_2, result); // если переполнение - код 1
+          binary_sum(value_1, value_2, result);  // если переполнение - код 1
       if (sign_val1) {
         setSign(result, sign_val1);
-        if (res_code)
-          res_code = 2; // если переполнение - код 2
+        if (res_code) res_code = 2;  // если переполнение - код 2
       }
-    } else { // знаки разные - вычитаем из большего
+    } else {  // знаки разные - вычитаем из большего
       sub_from_big(value_1, value_2, result, sign_val1, sign_val2);
     }
     printf("\nres scale = %d\n", res_scale);
     setScale(result, res_scale);
   }
-  if (is_zero(*result))
-    setSign(result, 0);
+  if (is_zero(*result)) setSign(result, 0);
   return res_code;
 }
 
@@ -331,23 +321,22 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
     res_scale = to_same_scale(&value_1, &value_2);
   else
     res_scale = getScale(value_1);
-  if (sign_val1 == sign_val2) { // оба знака одинаковы - вычитаем из большего
+  if (sign_val1 == sign_val2) {  // оба знака одинаковы - вычитаем из большего
     sub_from_big(value_1, value_2, result, sign_val1, sign_val2);
-  } else { // знаки разные -складываем
+  } else {  // знаки разные -складываем
     res_code = binary_sum(value_1, value_2, result);
-    if (sign_val1)
-      setSign(result, sign_val1);
+    if (sign_val1) setSign(result, sign_val1);
   }
   setScale(result, res_scale);
-  return res_code; // пока без обработки ошибок
+  return res_code;  // пока без обработки ошибок
 }
+
 int float_getScale(float value) {
   int res = 0;
   unsigned int fbits = *((unsigned int *)&value);
   int index = 31;
   for (unsigned int mask = 0x80000000; index > 22; mask >>= 1, index--) {
-    if (!!(fbits & mask) && (index != 31))
-      res += pow(2, index - 23);
+    if (!!(fbits & mask) && (index != 31)) res += pow(2, index - 23);
   }
   return res - 127;
 }
@@ -360,8 +349,7 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
     } else
       setSign(dst, 0);
     int binExp = float_getScale(src);
-    if (binExp > 95)
-      resCode = 1;
+    if (binExp > 95) resCode = 1;
     if (src < 1e8 && !resCode) {
       for (; !((int)src); src *= 10, f_scale++) {
       }
@@ -371,15 +359,13 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
       }
       binExp = float_getScale(src);
     }
-    if (f_scale > 28 || binExp < -94)
-      resCode = 1;
+    if (f_scale > 28 || binExp < -94) resCode = 1;
     if (!resCode) {
       setBit(dst, binExp, 1);
       unsigned int fbits = *((unsigned int *)&src);
       for (unsigned int mask = 0x400000; mask; mask >>= 1) {
         binExp--;
-        if (!!(fbits & mask))
-          setBit(dst, binExp, 1);
+        if (!!(fbits & mask)) setBit(dst, binExp, 1);
       }
       setScale(dst, f_scale);
     }
@@ -392,12 +378,10 @@ int s21_from_decimal_to_float(s21_decimal src, float *dst) {
   int resCode = 0;
   *dst = 0;
   for (int i = 0; i < 96; i++) {
-    if (getBit(src, i))
-      *dst += pow(2, i);
+    if (getBit(src, i)) *dst += pow(2, i);
   }
   *dst *= pow(10, (-1 * (getScale(src))));
-  if (getSign(src))
-    *dst *= -1;
+  if (getSign(src)) *dst *= -1;
   return resCode;
 }
 
@@ -421,25 +405,24 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst) {
   else {
     *dst = 0;
     for (int i = 0; i < 96; i++) {
-      if (getBit(src, i))
-        *dst += pow(2, i);
+      if (getBit(src, i)) *dst += pow(2, i);
     }
     *dst *= pow(10, (getScale(src) * -1));
-    if (getSign(src))
-      *dst *= -1;
+    if (getSign(src)) *dst *= -1;
   }
   return resCode;
 }
 
 int main() {
-  // float one = -3.232446546;
+  float num1 = 1.375323;
+  float num2 = 1.39;
   s21_decimal dec = {0};
   // s21_from_int_to_decimal(one, &dec);
-  // s21_from_float_to_decimal(one, &dec);
-  dec.bits[0] = 10;
+  // s21_from_float_to_decimal(num1, &dec);
+  dec.bits[0] = 0;
   dec.bits[1] = 0;
   dec.bits[2] = 0;
-  dec.bits[3] = 0b00000000000000000000000000000000;
+  dec.bits[3] = 0b10000000000000000000000000000000;
   for (int i = 95; i >= 0; i--) {
     printf("%d", getBit(dec, i));
   }
@@ -454,11 +437,11 @@ int main() {
   printf("\n VALUE1=%f\n", sign * (dec.bits[0] * pow(10, -1 * getScale(dec))));
   // float two = -3.2;
   s21_decimal val2 = {0};
-  // s21_from_int_to_decimal(two, &val2);
-  val2.bits[0] = 3;
+  // s21_from_float_to_decimal(num2, &val2);
+  val2.bits[0] = 0;
   val2.bits[1] = 0;
   val2.bits[2] = 0;
-  val2.bits[3] = 0b10000000000000000000000000000000;
+  val2.bits[3] = 0b00000000000000000000000000000000;
   // 0b00000000000001100000000000000000 = 6
   for (int i = 95; i >= 0; i--) {
     printf("%d", getBit(val2, i));
@@ -474,10 +457,11 @@ int main() {
          sign_2 * (val2.bits[0] * pow(10, -1 * getScale(val2))));
 
   // s21_decimal res = {0};
-  // printf("\n s21_add code result = %d\n", s21_add(dec, val2, &res));
-  // printf("\n res.bits[0]=%d\n, res.bits[1]=%d\n, res.bits[2]=%d\n, "
-  //        "res.bits[3]=%d\n",
-  //        res.bits[0], res.bits[1], res.bits[2], res.bits[3]);
+  // printf("\n s21_sub code result = %d\n", s21_sub(dec, val2, &res));
+  // printf(
+  //     "\n res.bits[0]=%d\n, res.bits[1]=%d\n, res.bits[2]=%d\n, "
+  //     "res.bits[3]=%d\n",
+  //     res.bits[0], res.bits[1], res.bits[2], res.bits[3]);
   // for (int i = 95; i >= 0; i--) {
   //   printf("%d", getBit(res, i));
   // }
@@ -486,7 +470,8 @@ int main() {
   //   printf("%d", getBit(res, i));
   // }
   // printf("\n sclae res =%d", getScale(res));
-  // printf("\n IS GREATER = %d\n", s21_is_greater(dec, val2));
+
+  printf("\n s21_is_not_equal = %d\n", s21_is_not_equal(dec, val2));
   // float result = 0;
   // s21_from_decimal_to_float(res, &result);
   // printf("\nresult = %f\n", result);

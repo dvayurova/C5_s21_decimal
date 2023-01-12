@@ -1,14 +1,6 @@
-78%: Checks: 102, Failures: 22, Errors: 0
-unit_tests.c:215:F:case_add:add_test_11:0: Assertion 'res_float == res_origin' failed: res_float == 6.29535e+19, res_origin == 16.75
-unit_tests.c:230:F:case_add:add_test_12:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+19, res_origin == -1232.77
-unit_tests.c:245:F:case_add:add_test_13:0: Assertion 'res_float == res_origin' failed: res_float == -3.13728e+19, res_origin == -1235.23
-unit_tests.c:260:F:case_add:add_test_14:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+16, res_origin == -93.9977
-unit_tests.c:275:F:case_add:add_test_15:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+15, res_origin == -940.3
-unit_tests.c:290:F:case_add:add_test_16:0: Assertion 'res_float == res_origin' failed: res_float == 3.13728e+15, res_origin == -0.940066
-unit_tests.c:305:F:case_add:add_test_17:0: Assertion 'res_float == res_origin' failed: res_float == -3.15807e+18, res_origin == 1.0831
-unit_tests.c:320:F:case_add:add_test_18:0: Assertion 'res_float == res_origin' failed: res_float == -3.15807e+18, res_origin == -112.964
-unit_tests.c:335:F:case_add:add_test_19:0: Assertion 'res_float == res_origin' failed: res_float == -6.29535e+19, res_origin == -1052.02
-unit_tests.c:350:F:case_add:add_test_20:0: Assertion 'res_float == res_origin' failed: res_float == -6.29535e+19, res_origin == -12140
+86%: Checks: 102, Failures: 14, Errors: 0
+unit_tests.c:275:F:case_add:add_test_15:0: Assertion 'res_float == res_origin' failed: res_float == -940.3, res_origin == -940.3
+unit_tests.c:305:F:case_add:add_test_17:0: Assertion 'res_float == res_origin' failed: res_float == 1.0831, res_origin == 1.0831
 unit_tests.c:877:F:case_add:s21_test_decimal_add_13:0: Assertion 'equal == 1' failed: equal == 0, 1 == 1
 unit_tests.c:930:F:case_add:s21_test_decimal_add_16:0: Assertion 'equal == 1' failed: equal == 0, 1 == 1
 unit_tests.c:1113:F:case_add:s21_test_decimal_add_28:0: Assertion 'res.bits[2] == etalon.bits[2]' failed: res.bits[2] == 2956914836, etalon.bits[2] == 2956914541

@@ -2,6 +2,7 @@
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   int res_code = 0, sign_val1 = 0, sign_val2 = 0, res_scale = 0;
+  memset(result, 0, sizeof(*result));
   sign_val1 = getSign(value_1);
   sign_val2 = getSign(value_2);
   if (is_zero(value_1))

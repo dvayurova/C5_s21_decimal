@@ -91,6 +91,7 @@ int first_bit(s21_decimal dec) { // определяет индекс перво
 // системе
 void binary_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *res) {
   s21_decimal val2_dop_code = {0};
+  memset(res, 0, sizeof(*res));
   int first_Bit = first_bit(value_1);
   dop_Code(value_2, &val2_dop_code, first_Bit);
   binary_sum(value_1, val2_dop_code, res);

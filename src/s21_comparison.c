@@ -40,10 +40,10 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
         res = 1;
       else if (bit_val2 == bit_val1) {
         for (int i = bit_val2; i >= 0 && !stop; i--) {
-          if (getBit(value_1, i) > getBit(value_2, i))
-            stop = 1; // если стоп, значит value_1 больше
+          if (getBit(value_2, i) > getBit(value_1, i))
+            stop = 1; // если стоп, значит value_2 больше
         }
-        res = stop ? 0 : 1;
+        res = stop ? 1 : 0;
       }
       res = getSign(value_1) ? !res : res;
     }

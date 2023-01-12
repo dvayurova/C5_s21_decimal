@@ -2,6 +2,7 @@
 
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   int res_code = 0, res_scale = 0;
+  memset(result, 0, sizeof(*result));
   int sign_val1 = getSign(value_1);
   int sign_val2 = getSign(value_2);
   if (getScale(value_1) != getScale(value_2))

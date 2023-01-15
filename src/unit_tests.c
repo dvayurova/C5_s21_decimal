@@ -6,14 +6,14 @@
 #define S21_FALSE 0
 #define CONVERTERS_S21_TRUE 0
 #define CONVERTERS_S21_FALSE 1
-#define U_MAX_INT 4294967295          // 0b11111111111111111111111111111111
-#define MAX_INT 2147483647            // 0b01111111111111111111111111111111
-#define EXPONENT_MINUS_1 2147549184   // 0b10000000000000010000000000000000
-#define EXPONENT_PLUS_1 65536         // 0b00000000000000010000000000000000
-#define EXPONENT_PLUS_2 196608        // 0b00000000000000110000000000000000
-#define EXPONENT_MINUS_28 2149318656  // 0b10000000000111000000000000000000
-#define EXPONENT_PLUS_28 1835008      // 0b00000000000111000000000000000000
-#define MINUS 2147483648              // 0b10000000000000000000000000000000
+#define U_MAX_INT 4294967295         // 0b11111111111111111111111111111111
+#define MAX_INT 2147483647           // 0b01111111111111111111111111111111
+#define EXPONENT_MINUS_1 2147549184  // 0b10000000000000010000000000000000
+#define EXPONENT_PLUS_1 65536        // 0b00000000000000010000000000000000
+#define EXPONENT_PLUS_2 196608       // 0b00000000000000110000000000000000
+#define EXPONENT_MINUS_28 2149318656 // 0b10000000000111000000000000000000
+#define EXPONENT_PLUS_28 1835008     // 0b00000000000111000000000000000000
+#define MINUS 2147483648             // 0b10000000000000000000000000000000
 #define MAX_DECIMAL 79228162514264337593543950335.0F
 #define MIN_DECIMAL -79228162514264337593543950335.0F
 
@@ -97,21 +97,21 @@ END_TEST
 
 START_TEST(s21_not_equal_7) {
   s21_decimal dec1 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec2 = {{12, 0, 0, 0b10000000000000010000000000000000}};  // -1.2;
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec2 = {{12, 0, 0, 0b10000000000000010000000000000000}}; // -1.2;
   ck_assert_int_eq(s21_is_not_equal(dec1, dec2), 1);
 
   s21_decimal dec3 = {
-      {120000, 0, 0, 0b00000000000001000000000000000000}};  //  12.0000
-  s21_decimal dec4 = {{12, 0, 0, 0b00000000000000000000000000000000}};  //
+      {120000, 0, 0, 0b00000000000001000000000000000000}}; //  12.0000
+  s21_decimal dec4 = {{12, 0, 0, 0b00000000000000000000000000000000}}; //
   ck_assert_int_eq(s21_is_not_equal(dec3, dec4), 0);
 
-  s21_decimal dec5 = {{0, 0, 0, 0b00000000000000000000000000000000}};   //  0
-  s21_decimal dec6 = {{00, 0, 0, 0b00000000000000010000000000000000}};  //
+  s21_decimal dec5 = {{0, 0, 0, 0b00000000000000000000000000000000}};  //  0
+  s21_decimal dec6 = {{00, 0, 0, 0b00000000000000010000000000000000}}; //
   ck_assert_int_eq(s21_is_not_equal(dec5, dec6), 0);
 
-  s21_decimal dec7 = {{0, 0, 0, 0b00000000000000000000000000000000}};  //   0
-  s21_decimal dec8 = {{0, 0, 0, 0b10000000000000000000000000000000}};  //  -0;
+  s21_decimal dec7 = {{0, 0, 0, 0b00000000000000000000000000000000}}; //   0
+  s21_decimal dec8 = {{0, 0, 0, 0b10000000000000000000000000000000}}; //  -0;
   ck_assert_int_eq(s21_is_not_equal(dec7, dec8), 0);
 }
 END_TEST
@@ -378,27 +378,26 @@ END_TEST
 
 START_TEST(s21_less_or_equal_23) {
   s21_decimal dec5 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}};  // -1.2;
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}}; // -1.2;
   ck_assert_int_eq(s21_is_less_or_equal(dec5, dec6), 0);
   ck_assert_int_eq(s21_is_less_or_equal(dec6, dec5), 1);
 
   s21_decimal dec7 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}};  //  1.2;
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}}; //  1.2;
   ck_assert_int_eq(s21_is_less_or_equal(dec7, dec8), 1);
   ck_assert_int_eq(s21_is_less_or_equal(dec8, dec7), 0);
 
   s21_decimal dec1 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}};  //  1.2;
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}}; //  1.2;
   ck_assert_int_eq(s21_is_less_or_equal(dec1, dec2), 0);
   ck_assert_int_eq(s21_is_less_or_equal(dec2, dec1), 1);
 
   s21_decimal dec3 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec4 = {
-      {12, 0, 0, 0b10000000000000010000000000000000}};  //  -1.2;
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec4 = {{12, 0, 0, 0b10000000000000010000000000000000}}; //  -1.2;
   ck_assert_int_eq(s21_is_less_or_equal(dec3, dec4), 1);
   ck_assert_int_eq(s21_is_less_or_equal(dec4, dec3), 0);
 
@@ -418,7 +417,7 @@ START_TEST(s21_test_is_less_or_equal_1) {
   s21_decimal a = {{1, 0, 0, 0}};
   s21_decimal b = {{1, 0, 0, 0}};
   ck_assert_int_eq(s21_is_less_or_equal(a, b),
-                   S21_TRUE);  // Возвращаемое значение : 0 - FALSE   1 - TRUE
+                   S21_TRUE); // Возвращаемое значение : 0 - FALSE   1 - TRUE
 }
 END_TEST
 
@@ -1383,27 +1382,26 @@ END_TEST
 
 START_TEST(s21_less_8) {
   s21_decimal dec5 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}};  // -1.2
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}}; // -1.2
   ck_assert_int_eq(s21_is_less(dec5, dec6), 0);
   ck_assert_int_eq(s21_is_less(dec6, dec5), 1);
 
   s21_decimal dec7 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}};  //  1.2;
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}}; //  1.2;
   ck_assert_int_eq(s21_is_less(dec7, dec8), 1);
   ck_assert_int_eq(s21_is_less(dec8, dec7), 0);
 
   s21_decimal dec1 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}};  //  1.2;
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}}; //  1.2;
   ck_assert_int_eq(s21_is_less(dec1, dec2), 0);
   ck_assert_int_eq(s21_is_less(dec2, dec1), 1);
 
   s21_decimal dec3 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec4 = {
-      {12, 0, 0, 0b10000000000000010000000000000000}};  //  -1.2;
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec4 = {{12, 0, 0, 0b10000000000000010000000000000000}}; //  -1.2;
   ck_assert_int_eq(s21_is_less(dec3, dec4), 1);
   ck_assert_int_eq(s21_is_less(dec4, dec3), 0);
 
@@ -1570,26 +1568,26 @@ END_TEST
 
 START_TEST(s21_greater_or_equal_13) {
   s21_decimal dec5 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}};  //
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}}; //
   ck_assert_int_eq(s21_is_greater_or_equal(dec5, dec6), 1);
   ck_assert_int_eq(s21_is_greater_or_equal(dec6, dec5), 0);
 
   s21_decimal dec7 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
   s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}};
   ck_assert_int_eq(s21_is_greater_or_equal(dec7, dec8), 0);
   ck_assert_int_eq(s21_is_greater_or_equal(dec8, dec7), 1);
 
   s21_decimal dec1 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
   s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}};
   ck_assert_int_eq(s21_is_greater_or_equal(dec1, dec2), 1);
   ck_assert_int_eq(s21_is_greater_or_equal(dec2, dec1), 0);
 
   s21_decimal dec3 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec4 = {{12, 0, 0, 0b10000000000000010000000000000000}};  //
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec4 = {{12, 0, 0, 0b10000000000000010000000000000000}}; //
 
   ck_assert_int_eq(s21_is_greater_or_equal(dec3, dec4), 0);
   ck_assert_int_eq(s21_is_greater_or_equal(dec4, dec3), 1);
@@ -3506,28 +3504,26 @@ END_TEST
 
 START_TEST(s21_greater_11) {
   s21_decimal dec5 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec6 = {
-      {12, 0, 0, 0b10000000000000010000000000000000}};  //  -1.2;
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec6 = {{12, 0, 0, 0b10000000000000010000000000000000}}; //  -1.2;
   ck_assert_int_eq(s21_is_greater(dec5, dec6), 1);
   ck_assert_int_eq(s21_is_greater(dec6, dec5), 0);
 
   s21_decimal dec7 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}};  //  1.2;
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec8 = {{12, 0, 0, 0b00000000000000010000000000000000}}; //  1.2;
   ck_assert_int_eq(s21_is_greater(dec7, dec8), 0);
   ck_assert_int_eq(s21_is_greater(dec8, dec7), 1);
 
   s21_decimal dec1 = {
-      {12345, 0, 0, 0b00000000000001000000000000000000}};  //  1.2345
-  s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}};  //  1.2
+      {12345, 0, 0, 0b00000000000001000000000000000000}}; //  1.2345
+  s21_decimal dec2 = {{12, 0, 0, 0b00000000000000010000000000000000}}; //  1.2
   ck_assert_int_eq(s21_is_greater(dec1, dec2), 1);
   ck_assert_int_eq(s21_is_greater(dec2, dec1), 0);
 
   s21_decimal dec3 = {
-      {12345, 0, 0, 0b10000000000001000000000000000000}};  // -1.2345
-  s21_decimal dec4 = {
-      {12, 0, 0, 0b10000000000000010000000000000000}};  //   -1.2
+      {12345, 0, 0, 0b10000000000001000000000000000000}}; // -1.2345
+  s21_decimal dec4 = {{12, 0, 0, 0b10000000000000010000000000000000}}; //   -1.2
   ck_assert_int_eq(s21_is_greater(dec3, dec4), 0);
   ck_assert_int_eq(s21_is_greater(dec4, dec3), 1);
 }
@@ -3537,7 +3533,7 @@ START_TEST(s21_test_is_greater_1) {
   s21_decimal a = {{2, 0, 0, 0}};
   s21_decimal b = {{1, 0, 0, 0}};
   ck_assert_int_eq(s21_is_greater(a, b),
-                   S21_TRUE);  // Возвращаемое значение : 0 - FALSE   1 - TRUE
+                   S21_TRUE); // Возвращаемое значение : 0 - FALSE   1 - TRUE
 }
 END_TEST
 
@@ -7089,7 +7085,8 @@ int main(void) {
 
 void run_testcase(Suite *testcase) {
   static int counter_testcase = 1;
-  if (counter_testcase > 1) counter_testcase++;
+  if (counter_testcase > 1)
+    counter_testcase++;
   SRunner *sr = srunner_create(testcase);
   srunner_set_fork_status(sr, CK_NOFORK);
   srunner_run_all(sr, CK_NORMAL);
@@ -7097,14 +7094,14 @@ void run_testcase(Suite *testcase) {
 }
 
 void run_tests(void) {
-  Suite *list_cases[] = {suite_add(), suite_sub(),
-                         //  suite_div(),
-                         //  suite_mod(),
-                         //  suite_mul(),
-                         //  suite_from_decimal_to_float(),
-                         //  suite_from_decimal_to_int(),
-                         //  suite_from_float_to_decimal(),
-                         //  suite_from_int_to_decimal(),
+  Suite *list_cases[] = {// suite_add(), suite_sub(),
+                         //   suite_div(),
+                         //   suite_mod(),
+                         //   suite_mul(),
+                         //   suite_from_decimal_to_float(),
+                         //   suite_from_decimal_to_int(),
+                         //   suite_from_float_to_decimal(),
+                         //   suite_from_int_to_decimal(),
                          suite_is_equal(), suite_is_not_equal(),
                          suite_is_greater(), suite_is_greater_or_equal(),
                          suite_is_less(), suite_is_less_or_equal(),

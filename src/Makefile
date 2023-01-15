@@ -11,7 +11,7 @@ OS=$(shell uname -s)
 
 all : s21_decimal.a 
 clean : 
-	rm -rf *.o *.gcno *.gcda *.info test s21_decimal.a
+	rm -rf *.o *.gcno *.gcda *.info test.out s21_decimal.a
 	rm -rf ./report
 	rm -rf *.dSYM
 rebuild : clean all

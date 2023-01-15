@@ -1,0 +1,16 @@
+gcc -Wall -Werror -Wextra -std=c11 -g -c s21*.c
+ar r s21_decimal.a s21*.o
+gcc -Wall -Werror -Wextra -std=c11 -g unit_tests.c s21_decimal.a -o test.out -lcheck
+./test.out	
+Running suite(s): s21_is_equal
+100%: Checks: 47, Failures: 0, Errors: 0
+Running suite(s): s21_is_not_equal
+100%: Checks: 7, Failures: 0, Errors: 0
+Running suite(s): s21_greater
+100%: Checks: 61, Failures: 0, Errors: 0
+Running suite(s): s21_greater_or_equal
+100%: Checks: 13, Failures: 0, Errors: 0
+Running suite(s): s21_is_less
+100%: Checks: 8, Failures: 0, Errors: 0
+Running suite(s): s21_less_or_equal
+100%: Checks: 71, Failures: 0, Errors: 0

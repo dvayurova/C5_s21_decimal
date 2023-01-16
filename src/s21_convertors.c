@@ -2,6 +2,7 @@
 
 int s21_from_float_to_decimal(float src, s21_decimal *dst) {
   int resCode = 0, f_scale = 0;
+  memset(dst, 0, sizeof(*dst));
   if (src != NAN && src != INFINITY && src != 0) {
     if (src < 0) {
       src *= -1;

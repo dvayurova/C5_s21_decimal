@@ -4,12 +4,11 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   int res_code = 0, res_scale = 0;
   int sign_val1 = getSign(value_1);
   int sign_val2 = getSign(value_2);
-  s21_decimal_long value_1_long = {0};
-  s21_decimal_long value_2_long = {0};
-  s21_decimal_long result_long = {0};
+  long_decimal value_1_long = {0};
+  long_decimal value_2_long = {0};
+  long_decimal result_long = {0};
   from_decimal_to_long(value_1, &value_1_long);
   from_decimal_to_long(value_2, &value_2_long);
-  from_decimal_to_long(*result, &result_long);
   if (getScale_long(value_1_long) != getScale_long(value_2_long))
     res_scale = to_same_scale(&value_1_long, &value_2_long);
   else
@@ -23,5 +22,6 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
       setSign_long(&result_long, sign_val1);
   }
   setScale_long(&result_long, res_scale);
+  from_long_to_decimal(result, result_long);
   return res_code; // пока без обработки ошибок
 }

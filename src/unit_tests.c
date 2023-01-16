@@ -5587,7 +5587,7 @@ START_TEST(add_test_15) {
   float res_float = 0.0;
   s21_add(src1, src2, &res_dec);
   s21_from_decimal_to_float(res_dec, &res_float);
-  ck_assert_float_eq_tol(res_float, res_origin, 1e-3);
+  ck_assert_float_eq_tol(res_float, res_origin, 1e-6);
 }
 END_TEST
 
@@ -5617,7 +5617,7 @@ START_TEST(add_test_17) {
   float res_float = 0.0;
   s21_add(src1, src2, &res_dec);
   s21_from_decimal_to_float(res_dec, &res_float);
-  ck_assert_float_eq_tol(res_float, res_origin, 1e-3);
+  ck_assert_float_eq_tol(res_float, res_origin, 1e-6);
 }
 END_TEST
 
@@ -5790,7 +5790,7 @@ START_TEST(add_test_28) {
   s21_from_decimal_to_float(result, &got_float);
 
   ck_assert_int_eq(code, 0);
-  ck_assert_float_eq_tol(got_float, float_res, 1e-03);
+  ck_assert_float_eq_tol(got_float, float_res, 1e-6);
 }
 
 START_TEST(add_test_29) {
@@ -7094,7 +7094,7 @@ void run_testcase(Suite *testcase) {
 }
 
 void run_tests(void) {
-  Suite *list_cases[] = {// suite_add(), suite_sub(),
+  Suite *list_cases[] = {suite_add(), suite_sub(),
                          //   suite_div(),
                          //   suite_mod(),
                          //   suite_mul(),

@@ -39,8 +39,7 @@ void dop_Code(long_decimal value, long_decimal *dop_code, int first_index);
 void binary_sub(long_decimal value_1, long_decimal value_2, long_decimal *res);
 void copy_decimal_long(long_decimal src, long_decimal *dst);
 void from_decimal_to_long(s21_decimal dec, long_decimal *dec_long);
-// int from_long_to_decimal(s21_decimal *dec, long_decimal dec_long);
-void from_long_to_decimal(s21_decimal *dec, long_decimal dec_long);
+void from_long_to_dec(long_decimal src, s21_decimal *dst);
 int scale_up(long_decimal *value_smallScale, int bigger_scale,
              int smaller_scale);
 int to_same_scale(long_decimal *value_1, long_decimal *value_2);
@@ -50,10 +49,11 @@ int float_getScale(float value);
 void shift(s21_decimal *x, int sign);
 void long_shift(long_decimal *x, int sign);
 void sub_from_big(long_decimal value_1_long, long_decimal value_2_long,
-                  long_decimal *result_long, int sign_val1, int sign_val2,
-                  s21_decimal value_1, s21_decimal value_2);
+                  long_decimal *result_long, int sign_val1, int sign_val2);
 int s21_greater_or_equal10(long_decimal value_1_long);
-long_decimal divide(long_decimal value_1, long_decimal *result);
+int div_long(long_decimal val1, s21_decimal *result);
+int s21_greater_or_equal_long(long_decimal value_1_long,
+                              long_decimal value_2_long);
 
 // arithmetics
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);

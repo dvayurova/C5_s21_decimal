@@ -1,92 +1,43 @@
 #include "s21_decimal.h"
 
 int main() {
-  // float num1 = 1.0;
-  // float num2 = 1.0;
-  s21_decimal dec = {0};
+
+  s21_decimal val1 = {0};
   s21_decimal val2 = {0};
-  // s21_from_float_to_decimal(num1, &dec);
+  // float num1 = 12.9;
+  // float num2 = 12.5;
+  // s21_from_float_to_decimal(num1, &val1);
   // s21_from_float_to_decimal(num2, &val2);
-
-  // long_decimal value_1 = {0};
-  // value_1.long_bits[0] = 10;
-  // long_decimal result1 = {0};
-  // value_1.long_bits[0] = 4;
-  // divide(value_1, &result1);
-  // printf("\n  s21_greater_or_equal10= %d \n",
-  // s21_greater_or_equal10(value_1));
-  dec.bits[0] = 10;
-  dec.bits[1] = 1000;
-  dec.bits[2] = 4000000;
-  dec.bits[3] = 0b10000000000001100000000000000000;
-  printf("\n dec: \n");
-  for (int i = 95; i >= 0; i--) {
-    printf("%d", getBit(dec, i));
-  }
-  printf("\ndec.bits[3]:\n");
-  for (int i = 127; i >= 96; i--) {
-    printf("%d", getBit(dec, i));
-  }
-
-  // printf("\n sclae val1 =%d", getScale(dec));
-  // printf("\n sign val1 =%d", getSign(dec));
-
-  // int sign = getSign(dec) ? -1 : 1;
-  // printf("\n VALUE1=%f\n", sign * (dec.bits[0] * pow(10, -1 *
-  // getScale(dec)))); float two = -3.2;
-
-  // s21_from_int_to_decimal(two, &val2);
-
-  val2.bits[0] = 5;
+  val1.bits[0] = UINT_MAX;
+  val1.bits[1] = UINT_MAX;
+  val1.bits[2] = UINT_MAX;
+  val1.bits[3] = UINT_MAX;
+  // printf("\n val1: \n");
+  // for (int i = 95; i >= 0; i--) {
+  //   printf("%d", getBit(val1, i));
+  // }
+  // printf("\n val1.bits[3]:\n");
+  // for (int i = 127; i >= 96; i--) {
+  //   printf("%d", getBit(val1, i));
+  // }
+  // printf("\n sclae val1 =%d", getScale(val1));
+  val2.bits[0] = 1;
   val2.bits[1] = 0;
   val2.bits[2] = 0;
-  val2.bits[3] = 0b00000000000010100000000000000000;
-  //  printf("\n  s21_is_less_or_equal = %d\n", s21_is_less_or_equal(dec,
-  //  val2));
-  // printf("\n is less = %d", s21_is_less(dec, val2));
+  val2.bits[3] = 0;
   // 0b00000000000001100000000000000000 = 6
-  printf("\n val2: \n");
-  for (int i = 95; i >= 0; i--) {
-    printf("%d", getBit(val2, i));
-  }
-  printf("\nval2.bits[3]:\n");
-  for (int i = 127; i >= 96; i--) {
-    printf("%d", getBit(val2, i));
-  }
-  // int sign_2 = getSign(val2) ? -1 : 1;
+  // printf("\n val2: \n");
+  // for (int i = 95; i >= 0; i--) {
+  //   printf("%d", getBit(val2, i));
+  // }
+  // printf("\nval2.bits[3]:\n");
+  // for (int i = 127; i >= 96; i--) {
+  //   printf("%d", getBit(val2, i));
+  // }
   // printf("\n sclae val2 =%d", getScale(val2));
-  // printf("\n sign val2 =%d", getSign(val2));
-  // printf("\n VALUE2=%f\n",
-  //        sign_2 * (val2.bits[0] * pow(10, -1 * getScale(val2))));
-
   s21_decimal res = {0};
-  s21_add(dec, val2, &res);
-  printf("\n ===res===: \n");
-  for (int i = 95; i >= 0; i--) {
-    printf("%d", getBit(res, i));
-  }
-  printf("\n res.bits[3]:\n");
-  for (int i = 127; i >= 96; i--) {
-    printf("%d", getBit(res, i));
-  }
-  // printf("\n res.bits[0]:\n");
-  // for (int i = 31; i >= 0; i--) {
-  //   printf("%d", getBit(res, i));
-  // }
-  // printf("\n res.bits[1]:\n");
-  // for (int i = 63; i >= 32; i--) {
-  //   printf("%d", getBit(res, i));
-  // }
-  // printf("\n res.bits[2]:\n");
-  // for (int i = 95; i >= 64; i--) {
-  //   printf("%d", getBit(res, i));
-  // }
-  // printf("\n res.bits[3]:\n");
-  // for (int i = 127; i >= 96; i--) {
-  //   printf("%d", getBit(res, i));
-  // }
-  // // printf("\n s21_add code result = %d\n", s21_add(dec, val2, &res));
-  // printf("\n res:\n");
+  s21_sub(val1, val2, &res);
+  // printf("\n ===res===: \n");
   // for (int i = 95; i >= 0; i--) {
   //   printf("%d", getBit(res, i));
   // }
@@ -94,44 +45,32 @@ int main() {
   // for (int i = 127; i >= 96; i--) {
   //   printf("%d", getBit(res, i));
   // }
-  // float res_float = 0.0;
-  // s21_from_decimal_to_float(res, &res_float);
-  printf("\n sclae res =%d", getScale(res));
-
-  // float result = 0;
-  // s21_from_decimal_to_float(res, &result);
-  // printf("\nresult = %f\n", result);
-
-  // sign = getSign(res) ? -1 : 1;
   // printf("\n sclae res =%d", getScale(res));
-  // printf("\n sign res =%d\n", getSign(res));
-  // printf("\n SUMM=%f\n", sign * (res.bits[0] * pow(10, -1 *
-  // getScale(res))));
+  // float resf = 0.0;
+  // s21_from_decimal_to_float(res, &resf);
+  // printf("\n float res = %f", resf);
+  // return 0;
 
-  // s21_decimal c = {{0, 0, 0, ~(INT_MAX)}};
-  // s21_decimal d = {{0, 0, 0, ~(INT_MAX)}};
-  // s21_decimal etalon = {{0, 0, 0, ~(INT_MAX)}};
-  // printf("\n C:\n");
-  // for (int i = 95; i >= 0; i--) {
-  //   printf("%d", getBit(c, i));
-  // }
-  // printf("\n D:\n");
-  // for (int i = 95; i >= 0; i--) {
-  //   printf("%d", getBit(d, i));
-  // }
-  // s21_decimal ress = {{0, 0, 0, 0}};
-  // s21_decimal *p_res = &ress;
+  // long_decimal value1 = {0};
+  // long_decimal value2 = {0};
+  // value1.long_bits[0] = 2;
+  // value1.long_bits[1] = 0;
+  // value1.long_bits[2] = 0;
+  // value1.long_bits[3] = 0;
+  // value1.long_bits[4] = 0;
+  // value1.long_bits[5] = 0;
+  // value1.long_bits[6] = 0;
 
-  // int add = s21_add(c, d, p_res);
-  // printf("\nADD = %d\n", add);
+  // value2.long_bits[0] = 10;
+  // value2.long_bits[1] = 0;
+  // value2.long_bits[2] = 0;
+  // value2.long_bits[3] = 0;
+  // value2.long_bits[4] = 0;
+  // value2.long_bits[5] = 0;
+  // value2.long_bits[6] = 0;
+  // printf("\n s21_greater_or_equal_long = %d \n",
+  //        s21_greater_or_equal_long(value1, value2));
 
-  // printf("\n EQUAL = %d\nEtalon:\n", equal);
-  // for (int i = 95; i >= 0; i--) {
-  //   printf("%d", getBit(etalon, i));
-  // }
-  // printf("\n RESS:\n");
-  // for (int i = 95; i >= 0; i--) {
-  //   printf("%d", getBit(ress, i));
-  // }
-  return 0;
+  // printf("\n s21_greater_or_equal10 = %d \n",
+  // s21_greater_or_equal10(value1));
 }

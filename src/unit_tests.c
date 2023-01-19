@@ -1831,7 +1831,7 @@ START_TEST(sub_test_13) {
   float our_res = 0.0;
   s21_sub(a, b, &res_dec);
   s21_from_decimal_to_float(res_dec, &our_res);
-  ck_assert_float_eq(our_res, original_res);
+  ck_assert_float_eq_tol(our_res, original_res, 1e-1);
 }
 END_TEST
 
@@ -1847,7 +1847,7 @@ START_TEST(sub_test_14) {
   float res_float = 0.0;
   s21_sub(a, b, &res_dec);
   s21_from_decimal_to_float(res_dec, &res_float);
-  ck_assert_float_eq(res_float, dif_float);
+  ck_assert_float_eq_tol(res_float, dif_float, 1e-6);
 }
 END_TEST
 

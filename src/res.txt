@@ -3,53 +3,19 @@ ar r s21_decimal.a s21*.o
 gcc -Wall -Werror -Wextra -std=c11 -g unit_tests.c s21_decimal.a -o test.out -lcheck
 ./test.out	
 Running suite(s): s21_add
-82%: Checks: 102, Failures: 18, Errors: 0
-unit_tests.c:5590:F:case_add:add_test_15:0: Assertion 'fabsl(res_origin - res_float) < 1e-6' failed: res_float == -940.3, res_origin == -940.3, 1e-6 == 1e-06
-unit_tests.c:5620:F:case_add:add_test_17:0: Assertion 'fabsl(res_origin - res_float) < 1e-6' failed: res_float == 0.259077, res_origin == 1.0831, 1e-6 == 1e-06
-unit_tests.c:6450:F:case_add:s21_test_decimal_add_29:0: Assertion 'res.bits[0] == etalon.bits[0]' failed: res.bits[0] == 0, etalon.bits[0] == 3056186842
-unit_tests.c:5838:F:case_add:add_2:0: Assertion '1 == s21_add(val1, val2, &res)' failed: 1 == 1, s21_add(val1, val2, &res) == 0
-unit_tests.c:5847:F:case_add:add_3:0: Assertion '2 == s21_add(val1, val2, &res)' failed: 2 == 2, s21_add(val1, val2, &res) == 0
-unit_tests.c:5921:F:case_add:add_12:0: Assertion '2 == s21_add(val1, val2, &res)' failed: 2 == 2, s21_add(val1, val2, &res) == 0
-unit_tests.c:5955:F:case_add:add_16:0: Assertion '2 == s21_add(val1, val2, &res)' failed: 2 == 2, s21_add(val1, val2, &res) == 0
-unit_tests.c:5731:F:case_add:add_test_24:0: Assertion 'res.bits[3] == res1.bits[3]' failed: res.bits[3] == 3145728, res1.bits[3] == 1048576
-unit_tests.c:5758:F:case_add:add_test_26:0: Assertion '1 == ret_s21' failed: 1 == 1, ret_s21 == 0
-unit_tests.c:5768:F:case_add:add_test_27:0: Assertion '2 == ret_s21' failed: 2 == 2, ret_s21 == 0
-unit_tests.c:5793:F:case_add:add_test_28:0: Assertion 'fabsl(float_res - got_float) < 1e-6' failed: got_float == -4489.38, float_res == -4489.38, 1e-6 == 1e-06
-unit_tests.c:5803:F:case_add:add_test_29:0: Assertion 's21_add(src1, src2, &res_dec) == 1' failed: s21_add(src1, src2, &res_dec) == 0, 1 == 1
-unit_tests.c:5814:F:case_add:add_test_30:0: Assertion 's21_add(src1, src2, &res_dec) == 2' failed: s21_add(src1, src2, &res_dec) == 0, 2 == 2
-unit_tests.c:6831:F:case_add:s21_add_max_31:0: Assertion 's21_add(src1, src2, &s21_res) == 1' failed: s21_add(src1, src2, &s21_res) == 0, 1 == 1
-unit_tests.c:6847:F:case_add:s21_add_max_32:0: Assertion 's21_add(src1, src2, &s21_res) == 1' failed: s21_add(src1, src2, &s21_res) == 0, 1 == 1
-unit_tests.c:6863:F:case_add:s21_add_max_33:0: Assertion 's21_add(src1, src2, &s21_res) == 1' failed: s21_add(src1, src2, &s21_res) == 0, 1 == 1
-unit_tests.c:6886:F:case_add:s21_add_max_34:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 0
-unit_tests.c:6912:F:case_add:s21_add_max_35:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 0
+96%: Checks: 102, Failures: 4, Errors: 0
+unit_tests.c:6449:F:case_add:s21_test_decimal_add_29:0: Assertion 'add == 0' failed: add == 2, 0 == 0 -  НЕВЕРНО ВОЗВРАЩАЕТ КОД  ПРИ ПЕРЕВОДЕ ИЗ ЛОНГ В ДЕЦИМАЛ
+unit_tests.c:5731:F:case_add:add_test_24:0: Assertion 'res.bits[3] == res1.bits[3]' failed: res.bits[3] == 3145728, res1.bits[3] == 1048576  ЛОМАЕТСЯ ПРИ ПЕРЕВОДЕ ИЗ ЛОНГ В ДЕЦИМАЛ  И ТЕСТ САМ НЕ ОЧ
+unit_tests.c:6885:F:case_add:s21_add_max_34:0: Assertion 's21_add(src1, src2, &s21_res) == 0' failed: s21_add(src1, src2, &s21_res) == 2, 0 == 0 - ЛОМАЕТСЯ ПРИ ПЕРЕВОДЕ ИЗ ЛОНГ В ДЕЦИМАЛ И НЕВЕРНО ВОЗВРАЩАЕТ КОД
+unit_tests.c:6911:F:case_add:s21_add_max_35:0: Assertion 's21_add(src1, src2, &s21_res) == 0' failed: s21_add(src1, src2, &s21_res) == 2, 0 == 0 - ЛОМАЕТСЯ ПРИ ПЕРЕВОДЕ ИЗ ЛОНГ В ДЕЦИМАЛ И НЕВЕРНО ВОЗВРАЩАЕТ КОД
 Running suite(s): s21_sub
-56%: Checks: 75, Failures: 33, Errors: 0
-unit_tests.c:1658:F:case_sub:sub_test_2:0: Assertion 'res_int == dif_int' failed: res_int == 6, dif_int == -10
-unit_tests.c:2255:F:case_sub:s21_subTest1:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:2313:F:case_sub:s21_subTest3:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:2371:F:case_sub:s21_subTest5:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:2429:F:case_sub:s21_subTest7:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:2458:F:case_sub:s21_subTest8:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:2544:F:case_sub:s21_subTest11:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:2722:F:case_sub:s21_subTest17:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148401152, result.bits[3] == 0
-unit_tests.c:2753:F:case_sub:s21_subTest18:0: Assertion 'origin.bits[1] == result.bits[1]' failed: origin.bits[1] == 1261806041, result.bits[1] == 1261806040
-unit_tests.c:2789:F:case_sub:s21_subTest19:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148597760, result.bits[3] == 1376256
-unit_tests.c:2818:F:case_sub:s21_subTest20:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148597760, result.bits[3] == 0
+82%: Checks: 75, Failures: 13, Errors: 0
+unit_tests.c:2722:F:case_sub:s21_subTest17:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148401152, result.bits[3] == 2147483648 ЛОМАЕТСЯ ПРИ ПЕРЕВОДЕ ИЗ ЛОНГ В ДЕЦИМАЛ + ВОЗМОЖНО В САМОМ ТЕСТЕ РЕЗУЛЬТАТ ДРУГОЙ
+unit_tests.c:2789:F:case_sub:s21_subTest19:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148597760, result.bits[3] == 2147483648
+unit_tests.c:2818:F:case_sub:s21_subTest20:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148597760, result.bits[3] == 2147483648
 unit_tests.c:2847:F:case_sub:s21_subTest21:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 1114112, result.bits[3] == 0
-unit_tests.c:2876:F:case_sub:s21_subTest22:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 1114112, result.bits[3] == 2148859904
-unit_tests.c:3050:F:case_sub:s21_subTest28:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2147483648, result.bits[3] == 0
-unit_tests.c:3079:F:case_sub:s21_subTest29:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2149056512, result.bits[3] == 1572864
-unit_tests.c:3137:F:case_sub:s21_subTest31:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2149318656, result.bits[3] == 1835008
-unit_tests.c:3166:F:case_sub:s21_subTest32:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148007936, result.bits[3] == 0
-unit_tests.c:1802:F:case_sub:sub_test_11:0: Assertion 'res_float == origin_float' failed: res_float == 110.5, origin_float == 110.5
-unit_tests.c:1834:F:case_sub:sub_test_13:0: Assertion 'our_res == original_res' failed: our_res == 0.4, original_res == 0.4
-unit_tests.c:1882:F:case_sub:sub_test_16:0: Assertion 'res_float == dif_float' failed: res_float == 5185.73, dif_float == -2.0209e+10
-unit_tests.c:1898:F:case_sub:sub_test_17:0: Assertion 'res_float == dif_float' failed: res_float == 83961.3, dif_float == -2.02081e+10
-unit_tests.c:1914:F:case_sub:sub_test_18:0: Assertion 'res_float == dif_float' failed: res_float == -940098, dif_float == -940098
-unit_tests.c:1930:F:case_sub:sub_test_19:0: Assertion 'res_float == dif_float' failed: res_float == -106.748, dif_float == 108
-unit_tests.c:1962:F:case_sub:sub_test_21:0: Assertion 'res_float == dif_float' failed: res_float == 0, dif_float == -20
-unit_tests.c:1978:F:case_sub:s21_sub_int_22:0: Assertion 'res_s21 == res' failed: res_s21 == 69, res == -99899
-unit_tests.c:1994:F:case_sub:s21_sub_int_23:0: Assertion 'res_s21 == res' failed: res_s21 == -69, res == 99899
+unit_tests.c:2876:F:case_sub:s21_subTest22:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 1114112, result.bits[3] == 0
+unit_tests.c:3166:F:case_sub:s21_subTest32:0: Assertion 'origin.bits[3] == result.bits[3]' failed: origin.bits[3] == 2148007936, result.bits[3] == 2147483648
 unit_tests.c:2052:F:case_sub:s21_sub_inf_27:0: Assertion '1 == ret_s21' failed: 1 == 1, ret_s21 == 0
 unit_tests.c:2062:F:case_sub:s21_sub_neg_inf_28:0: Assertion '2 == ret_s21' failed: 2 == 2, ret_s21 == 0
 unit_tests.c:2126:F:case_sub:s21_sub_max_30:0: Assertion 'original_res.bits[0] == s21_res.bits[0]' failed: original_res.bits[0] == 4294967294, s21_res.bits[0] == 0

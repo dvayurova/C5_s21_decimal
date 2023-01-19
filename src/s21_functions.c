@@ -135,7 +135,7 @@ int binary_sum(long_decimal value_1, long_decimal value_2, long_decimal *res) {
       tmp = 0;
     }
   }
-  return tmp; // возвращает tmp для отслеживания переполнения
+  return tmp;
 }
 
 // dop_Code - перевод в дополнительный код (для вычитания)
@@ -248,32 +248,6 @@ void from_decimal_to_long(s21_decimal dec, long_decimal *dec_long) {
   dec_long->long_bits[6] = dec.bits[3];
 }
 
-int s21_greater_or_equal10(long_decimal value_1_long) {
-  int res = 0, stop = 0;
-  int bit_val1 = 0;
-  int bit_ten = 0;
-  long_decimal value_ten = {0};
-  value_ten.long_bits[0] = 10;
-  bit_val1 = first_bit_long(value_1_long);
-  bit_ten = first_bit_long(value_ten);
-  if (bit_val1 > bit_ten) {
-    res = 1;
-  } else if (bit_ten == bit_val1) {
-    for (int i = bit_ten; i >= 0 && !stop; i--) {
-      if (long_getBit(value_ten, i) > long_getBit(value_1_long, i)) {
-        stop = 1;
-      } // если стоп, значит 10 больше
-      else if (long_getBit(value_1_long, i) > long_getBit(value_ten, i)) {
-        stop = 2;
-      } //  значит value_1 больше
-    }
-    res = stop == 2 ? 1 : 0;
-    if (stop == 0)
-      res = 1;
-  }
-  return res;
-}
-
 // сравнение биг децимал без учета знака
 int s21_greater_or_equal_long(long_decimal value_1_long,
                               long_decimal value_2_long) {
@@ -300,64 +274,6 @@ int s21_greater_or_equal_long(long_decimal value_1_long,
   return res;
 }
 
-void from_long_to_dec(long_decimal src, s21_decimal *dst) {
-  for (int i = 0; i < 96; i++) {
-    setBit(dst, i, long_getBit(src, i));
-  }
-}
-
-// long_decimal divide(long_decimal value_1, long_decimal *result) {
-//   long_decimal temp = {0};
-//   long_decimal value_2 = {0};
-//   value_2.long_bits[0] = 10;
-//   result->long_bits[0] = 0;
-//   result->long_bits[1] = 0;
-//   result->long_bits[2] = 0;
-//   int i = 191;
-//   while (long_getBit(value_1, i) == 0)
-//     i--;
-//   int sub = 0;
-//   for (; i >= 0; i--) {
-//     long_shift(&temp, 1);
-//     long_setBit(&temp, 0, long_getBit(value_1, i));
-//     if (s21_greater_or_equal10(temp) == 1) {
-//       sub += 1;
-//       long_shift(result, 1);
-//       long_setBit(result, 0, 1);
-//       binary_sub(temp, value_2, &temp);
-//     } else if (sub != 0)
-//       long_shift(result, 1);
-//   }
-//   printf("\n result->long_bits[0]= %d\n", result->long_bits[0]);
-//   return temp;
-// }
-
-// void from_long_to_decimal(s21_decimal *dec, long_decimal dec_long) {
-//   memset(dec, 0, sizeof(*dec));
-//   long_decimal tmp = {0};
-//   int scale = 0;
-//   scale = getScale_long(dec_long);
-//   if (dec_long.long_bits[3] == 0 && dec_long.long_bits[4] == 0 &&
-//       dec_long.long_bits[5] == 0) {
-//     dec->bits[0] = dec_long.long_bits[0];
-//     dec->bits[1] = dec_long.long_bits[1];
-//     dec->bits[2] = dec_long.long_bits[2];
-//     dec->bits[3] = dec_long.long_bits[6];
-//   } else {
-
-//     printf("dec_long.long_bits[3] = %d\n, dec_long.long_bits[4] = %d, "
-//            "dec_long.long_bits[5] = %d\n",
-//            dec_long.long_bits[3], dec_long.long_bits[4],
-//            dec_long.long_bits[5]);
-//     do {
-//       printf("\n ----CHECK!!!!------ \n");
-//       divide(dec_long, &tmp);
-//       copy_decimal_long(tmp, &dec_long);
-//       scale += 1;
-//     } while (dec_long.long_bits[3] > 0 && dec_long.long_bits[4] > 0 &&
-//              dec_long.long_bits[5] > 0);
-//   }
-// }
 int scale_up(long_decimal *value_smallScale, int bigger_scale,
              int smaller_scale) {
   int is_inf = 0, sign = 0;
@@ -417,18 +333,23 @@ void sub_from_big(long_decimal value_1_long, long_decimal value_2_long,
     }
   } else {
     binary_sub(value_2_long, value_1_long, result_long);
-    printf("\n ==CHECK== \n");
+    // printf("\n ==CHECK== \n");
     if (sign_val2)
       setSign_long(result_long, sign_val2);
   }
 }
-
+void from_long_to_dec(long_decimal src, s21_decimal *dst) {
+  for (int i = 0; i < 96; i++) {
+    setBit(dst, i, long_getBit(src, i));
+  }
+}
 int div_long(long_decimal val1, s21_decimal *result) {
   int ret = 0;
   int scale = 0;
   int sub = 0;
   int k = 0;
   int sign = 0;
+  memset(result, 0, sizeof(*result)); // добавила
   long_decimal res = {0};
   long_decimal temp = {0};
   long_decimal ten = {0};
@@ -443,7 +364,8 @@ int div_long(long_decimal val1, s21_decimal *result) {
     for (; k < 96; i--) {
       long_shift(&temp, 1);
       long_setBit(&temp, 0, long_getBit(val1, i));
-      if (s21_greater_or_equal10(temp) == 1) {
+      if (s21_greater_or_equal_long(temp, ten) ==
+          1) { // заменила на функцию s21_greater_or_equal_long
         sub += 1;
         long_shift(&res, 1);
         long_setBit(&res, 0, 1);
@@ -466,3 +388,49 @@ int div_long(long_decimal val1, s21_decimal *result) {
   setSign(result, sign); // добавила знак
   return ret;
 }
+
+// int from_long_to_decimal(long_decimal val1,
+//                          s21_decimal *result) { //не работает(
+//   int ret = 0;
+//   int scale = 0;
+//   int sub = 0;
+//   int k = 0;
+//   int sign = 0;
+//   sign = getSign_long(val1);
+//   long_decimal res = {0};
+//   long_decimal temp = {0};
+//   long_decimal ten = {0};
+//   ten.long_bits[0] = 10;
+//   scale = getScale_long(val1);
+//   int i = 191;
+//   while (long_getBit(val1, i) == 0)
+//     i--;
+//   if (val1.long_bits[3] != 0 || val1.long_bits[4] != 0 ||
+//       val1.long_bits[5] != 0) {
+//     for (; k < 96; i--) {
+//       long_shift(&temp, 1);
+//       long_setBit(&temp, 0, long_getBit(val1, i));
+//       if (s21_greater_or_equal10(temp) == 1) {
+//         sub += 1;
+//         long_shift(&res, 1);
+//         long_setBit(&res, 0, 1);
+//         binary_sub(temp, ten, &temp);
+//       } else if (sub != 0)
+//         long_shift(&res, 1);
+//       if (sub != 0)
+//         k++;
+//       scale--;
+//     }
+//   } else {
+//     from_long_to_dec(val1, result); // добавила
+//   }
+//   if (scale >= 0 && scale < 29) {
+//     result->bits[0] = res.long_bits[0];
+//     result->bits[1] = res.long_bits[1];
+//     result->bits[2] = res.long_bits[2];
+//     setScale(result, scale);
+//   } else
+//     ret = 1;
+//   setSign(result, sign); // добавила знак
+//   return ret;
+// }

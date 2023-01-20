@@ -343,51 +343,6 @@ void from_long_to_dec(long_decimal src, s21_decimal *dst) {
     setBit(dst, i, long_getBit(src, i));
   }
 }
-// int div_long(long_decimal val1, s21_decimal *result) {
-//   int ret = 0;
-//   int scale = 0;
-//   int sub = 0;
-//   int k = 0;
-//   int sign = 0;
-//   memset(result, 0, sizeof(*result)); // добавила
-//   long_decimal res = {0};
-//   long_decimal temp = {0};
-//   long_decimal ten = {0};
-//   ten.long_bits[0] = 10;
-//   scale = getScale_long(val1);
-//   sign = getSign_long(val1);
-//   int i = 191;
-//   while (long_getBit(val1, i) == 0)
-//     i--;
-//   if (val1.long_bits[3] != 0 || val1.long_bits[4] != 0 ||
-//       val1.long_bits[5] != 0) {
-//     for (; k < 96; i--) {
-//       long_shift(&temp, 1);
-//       long_setBit(&temp, 0, long_getBit(val1, i));
-//       if (s21_greater_or_equal_long(temp, ten) ==
-//           1) { // заменила на функцию s21_greater_or_equal_long
-//         sub += 1;
-//         long_shift(&res, 1);
-//         long_setBit(&res, 0, 1);
-//         binary_sub(temp, ten, &temp);
-//       } else if (sub != 0)
-//         long_shift(&res, 1);
-//       if (sub != 0)
-//         k++;
-//       scale--;
-//     }
-//     if (scale >= 0 && scale < 29) {
-//       from_long_to_dec(res, result);
-//       setScale(result, scale);
-//     } else
-//       ret = 1;
-//   } else {
-//     from_long_to_dec(val1, result);
-//     setScale(result, scale);
-//   }
-//   setSign(result, sign); // добавила знак
-//   return ret;
-// }
 
 int from_long_to_decimal(long_decimal val1, s21_decimal *result) {
   int ret = 0;
@@ -447,52 +402,3 @@ long_decimal div_div(long_decimal val1) {
     binary_sum(res, one, &res);
   return res;
 }
-
-// int from_long_to_decimal(long_decimal val1,
-//                          s21_decimal *result) { //не работает(
-//   int ret = 0;
-//   int scale = 0;
-//   int sub = 0;
-//   int k = 0;
-//   int sign = 0;
-//   sign = getSign_long(val1);
-//   long_decimal res = {0};
-//   long_decimal temp = {0};
-//   long_decimal ten = {0};
-//   ten.long_bits[0] = 10;
-//   scale = getScale_long(val1);
-//   int i = 191;
-//   while (long_getBit(val1, i) == 0)
-//     i--;
-//   if (val1.long_bits[3] != 0 || val1.long_bits[4] != 0 ||
-//       val1.long_bits[5] != 0) {
-//     for (; k < 96; i--) {
-//       long_shift(&temp, 1);
-//       long_setBit(&temp, 0, long_getBit(val1, i));
-//       if (s21_greater_or_equal10(temp) == 1) {
-//         sub += 1;
-//         long_shift(&res, 1);
-//         long_setBit(&res, 0, 1);
-//         binary_sub(temp, ten, &temp);
-//       } else if (sub != 0)
-//         long_shift(&res, 1);
-//       if (sub != 0)
-//         k++;
-//       scale--;
-//     }
-//   } else {
-//     from_long_to_dec(val1, result); // добавила
-//   }
-//   if (scale >= 0 && scale < 29) {
-//     result->bits[0] = res.long_bits[0];
-//     result->bits[1] = res.long_bits[1];
-//     result->bits[2] = res.long_bits[2];
-//     setScale(result, scale);
-//   } else
-//     ret = 1;
-//   setSign(result, sign); // добавила знак
-//   return ret;
-// }
-// int from_long_to_decimal(long_decimal val1, s21_decimal *result) {
-//   int ret = 0;
-// }

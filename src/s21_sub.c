@@ -44,5 +44,5 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   res_code = from_long_to_decimal(result_long, result);
   if (res_code && getSign(*result))
     res_code = 2; // если переполнение с минусом - код 2
-  return res_code; // пока без обработки ошибок
+  return res_code;
 }

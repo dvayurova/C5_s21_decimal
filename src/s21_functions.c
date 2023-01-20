@@ -404,7 +404,7 @@ int from_long_to_decimal(long_decimal val1, s21_decimal *result) {
       res = div_div(res);
       scale--;
     }
-    if (res.long_bits[3] == 0) {
+    if (res.long_bits[3] == 0 && scale >= 0) {
       result->bits[0] = res.long_bits[0];
       result->bits[1] = res.long_bits[1];
       result->bits[2] = res.long_bits[2];

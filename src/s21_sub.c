@@ -33,14 +33,14 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   }
   if (is_zero(result_long))
     setSign_long(&result_long, 0);
-  printf("\n !res_long: \n");
-  for (int i = 191; i >= 0; i--) {
-    printf("%d", long_getBit(result_long, i));
-  }
-  printf("\n !res_long.bits[3]:\n");
-  for (int i = 223; i >= 192; i--) {
-    printf("%d", long_getBit(result_long, i));
-  }
+  // printf("\n !res_long: \n");
+  // for (int i = 191; i >= 0; i--) {
+  //   printf("%d", long_getBit(result_long, i));
+  // }
+  // printf("\n !res_long.bits[3]:\n");
+  // for (int i = 223; i >= 192; i--) {
+  //   printf("%d", long_getBit(result_long, i));
+  // }
   res_code = from_long_to_decimal(result_long, result);
   if (res_code && getSign(*result))
     res_code = 2; // если переполнение с минусом - код 2

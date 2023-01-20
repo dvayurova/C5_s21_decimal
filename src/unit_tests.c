@@ -278,7 +278,7 @@ START_TEST(sub_Test) {
   ck_assert_int_eq(result.bits[2], big_num_positive.bits[2]);
   ck_assert_int_eq(result.bits[3], big_num_positive.bits[3]);
 
-  ck_assert_int_eq(res, s21_sub(big_num_positive, big_num_negative, &result));
+  ck_assert_int_eq(1, s21_sub(big_num_positive, big_num_negative, &result));
 
   memset(&result, 0, sizeof(result));
   s21_sub(long_num_positive, long_num_negative, &result);

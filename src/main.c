@@ -11,7 +11,7 @@ int main() {
   val1.bits[0] = UINT_MAX;
   val1.bits[1] = UINT_MAX;
   val1.bits[2] = UINT_MAX;
-  val1.bits[3] = 0b10000000000000000000000000000000;
+  val1.bits[3] = 0b00000000000000000000000000000000;
   printf("\n val1: \n");
   for (int i = 95; i >= 0; i--) {
     printf("%d", getBit(val1, i));
@@ -22,9 +22,9 @@ int main() {
   }
   printf("\n sclae val1 =%d", getScale(val1));
   val2.bits[0] = UINT_MAX;
-  val2.bits[1] = 0;
-  val2.bits[2] = 0;
-  val2.bits[3] = 0b10000000000001100000000000000000;
+  val2.bits[1] = UINT_MAX;
+  val2.bits[2] = UINT_MAX;
+  val2.bits[3] = 0b00000000000000000000000000000000;
   // 0b00000000000001100000000000000000 = 6
   printf("\n val2: \n");
   for (int i = 95; i >= 0; i--) {

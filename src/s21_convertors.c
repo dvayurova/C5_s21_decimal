@@ -65,16 +65,6 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
 
 int s21_from_decimal_to_int(s21_decimal src, int *dst) {
   int resCode = 0;
-
-  // printf("\n ===src===: \n");
-  // for (int i = 95; i >= 0; i--) {
-  //   printf("%d", getBit(src, i));
-  // }
-  // printf("\n src.bits[3]:\n");
-  // for (int i = 127; i >= 96; i--) {
-  //   printf("%d", getBit(src, i));
-  // }
-
   if (first_bit(src) > 31)
     resCode = 1;
   else {
@@ -87,8 +77,5 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst) {
     if (getSign(src))
       *dst *= -1;
   }
-
-  // printf("\n dst = %d", *dst);
-
   return resCode;
 }

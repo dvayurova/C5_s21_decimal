@@ -73,7 +73,7 @@ int setScale_long(long_decimal *d, int scale) {
     }
     bit = 1;
   }
-  return bit; // if scale < 0 || > 28 return 0
+  return bit;
 }
 
 int getScale(s21_decimal x) {
@@ -96,7 +96,7 @@ int setScale(s21_decimal *d, int scale) {
     }
     bit = 1;
   }
-  return bit; // if scale < 0 || > 28 return 0
+  return bit;
 }
 
 int first_bit(s21_decimal dec) { // определяет индекс первого ненулевого бита
@@ -108,8 +108,7 @@ int first_bit(s21_decimal dec) { // определяет индекс перво
   return first;
 }
 
-int first_bit_long(
-    long_decimal dec) { // определяет индекс первого ненулевого бита
+int first_bit_long(long_decimal dec) {
   int first = 0;
   for (int i = 192; i >= 0 && !first; i--) {
     if (long_getBit(dec, i))
@@ -333,7 +332,6 @@ void sub_from_big(long_decimal value_1_long, long_decimal value_2_long,
     }
   } else {
     binary_sub(value_2_long, value_1_long, result_long);
-    // printf("\n ==CHECK== \n");
     if (sign_val2)
       setSign_long(result_long, sign_val2);
   }

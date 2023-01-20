@@ -50,7 +50,6 @@ void shift(s21_decimal *x, int sign);
 void long_shift(long_decimal *x, int sign);
 void sub_from_big(long_decimal value_1_long, long_decimal value_2_long,
                   long_decimal *result_long, int sign_val1, int sign_val2);
-// int div_long(long_decimal val1, s21_decimal *result);
 int from_long_to_decimal(long_decimal val1, s21_decimal *result);
 long_decimal div_div(long_decimal val1);
 int s21_greater_or_equal_long(long_decimal value_1_long,

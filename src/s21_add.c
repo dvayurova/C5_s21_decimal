@@ -56,7 +56,8 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   // for (int i = 223; i >= 192; i--) {
   //   printf("%d", long_getBit(result_long, i));
   // }
-  res_code = div_long(result_long, result); // если переполнение - код 1
+  res_code =
+      from_long_to_decimal(result_long, result); // если переполнение - код 1
   if (res_code && getSign(*result))
     res_code = 2; // если переполнение с минусом - код 2
   return res_code;

@@ -24,22 +24,22 @@ START_TEST(add_Test) {
   big_num_positive.bits[0] = UINT_MAX;
   big_num_positive.bits[1] = UINT_MAX;
   big_num_positive.bits[2] = UINT_MAX;
-  big_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  big_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   big_num_negative.bits[0] = UINT_MAX;
   big_num_negative.bits[1] = UINT_MAX;
   big_num_negative.bits[2] = UINT_MAX;
-  big_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  big_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -169,22 +169,22 @@ START_TEST(sub_Test) {
   big_num_positive.bits[0] = UINT_MAX;
   big_num_positive.bits[1] = UINT_MAX;
   big_num_positive.bits[2] = UINT_MAX;
-  big_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale 28
+  big_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale 28
   s21_decimal long_num_negative = {0};
   big_num_negative.bits[0] = UINT_MAX;
   big_num_negative.bits[1] = UINT_MAX;
   big_num_negative.bits[2] = UINT_MAX;
-  big_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  big_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -288,6 +288,20 @@ START_TEST(sub_Test) {
   s21_sub(long_num_positive, long_num_negative, &result);
   s21_from_decimal_to_int(result, &res);
   ck_assert_int_eq(res, 0);
+
+  int num_int1 = 12;
+  int num_int2 = 14;
+  s21_from_int_to_decimal(num_int1, &tmp1);
+  s21_from_int_to_decimal(num_int2, &tmp2);
+  s21_sub(tmp1, tmp2, &result);
+  s21_from_decimal_to_int(result, &res);
+  ck_assert_int_eq(res, num_int1 - num_int2);
+
+  res = s21_sub(long_num_positive, other_ten, &result);
+  ck_assert_int_eq(res, 0);
+
+  res = s21_sub(big_num_positive, other_ten, &result);
+  ck_assert_int_eq(res, 0);
 }
 END_TEST
 
@@ -309,22 +323,22 @@ START_TEST(not_equal_Test) {
   long_num_positive.bits[0] = UINT_MAX;
   long_num_positive.bits[1] = UINT_MAX;
   long_num_positive.bits[2] = UINT_MAX;
-  long_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  long_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   long_num_negative.bits[0] = UINT_MAX;
   long_num_negative.bits[1] = UINT_MAX;
   long_num_negative.bits[2] = UINT_MAX;
-  long_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  long_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -426,22 +440,22 @@ START_TEST(equal_Test) {
   long_num_positive.bits[0] = UINT_MAX;
   long_num_positive.bits[1] = UINT_MAX;
   long_num_positive.bits[2] = UINT_MAX;
-  long_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  long_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   long_num_negative.bits[0] = UINT_MAX;
   long_num_negative.bits[1] = UINT_MAX;
   long_num_negative.bits[2] = UINT_MAX;
-  long_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  long_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -543,22 +557,22 @@ START_TEST(less_Test) {
   long_num_positive.bits[0] = UINT_MAX;
   long_num_positive.bits[1] = UINT_MAX;
   long_num_positive.bits[2] = UINT_MAX;
-  long_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  long_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   long_num_negative.bits[0] = UINT_MAX;
   long_num_negative.bits[1] = UINT_MAX;
   long_num_negative.bits[2] = UINT_MAX;
-  long_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  long_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -639,6 +653,20 @@ START_TEST(less_Test) {
   s21_from_int_to_decimal(num_int2, &tmp2);
   res = s21_is_less(tmp1, tmp2);
   ck_assert_int_eq(res, 0);
+
+  num_int1 = 12;
+  num_int2 = 14;
+  s21_from_int_to_decimal(num_int1, &tmp1);
+  s21_from_int_to_decimal(num_int2, &tmp2);
+  res = s21_is_less(tmp1, tmp2);
+  ck_assert_int_eq(res, 1);
+
+  num_int1 = 23;
+  num_int2 = 21;
+  s21_from_int_to_decimal(num_int1, &tmp1);
+  s21_from_int_to_decimal(num_int2, &tmp2);
+  res = s21_is_less(tmp1, tmp2);
+  ck_assert_int_eq(res, 0);
 }
 END_TEST
 
@@ -660,22 +688,22 @@ START_TEST(less_or_equal_Test) {
   long_num_positive.bits[0] = UINT_MAX;
   long_num_positive.bits[1] = UINT_MAX;
   long_num_positive.bits[2] = UINT_MAX;
-  long_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  long_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   long_num_negative.bits[0] = UINT_MAX;
   long_num_negative.bits[1] = UINT_MAX;
   long_num_negative.bits[2] = UINT_MAX;
-  long_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  long_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -777,22 +805,22 @@ START_TEST(greater_Test) {
   long_num_positive.bits[0] = UINT_MAX;
   long_num_positive.bits[1] = UINT_MAX;
   long_num_positive.bits[2] = UINT_MAX;
-  long_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  long_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   long_num_negative.bits[0] = UINT_MAX;
   long_num_negative.bits[1] = UINT_MAX;
   long_num_negative.bits[2] = UINT_MAX;
-  long_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  long_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -894,22 +922,22 @@ START_TEST(greater_or_equal_Test) {
   long_num_positive.bits[0] = UINT_MAX;
   long_num_positive.bits[1] = UINT_MAX;
   long_num_positive.bits[2] = UINT_MAX;
-  long_num_positive.bits[3] = 0b00000000000111000000000000000000; // scale= 28
+  long_num_positive.bits[3] = 0b00000000000111000000000000000000;  // scale= 28
   s21_decimal long_num_negative = {0};
   long_num_negative.bits[0] = UINT_MAX;
   long_num_negative.bits[1] = UINT_MAX;
   long_num_negative.bits[2] = UINT_MAX;
-  long_num_negative.bits[3] = 0b10000000000111000000000000000000; // scale = 28
+  long_num_negative.bits[3] = 0b10000000000111000000000000000000;  // scale = 28
   s21_decimal one = {0};
   one.bits[0] = 1;
   s21_decimal ten = {0};
   ten.bits[0] = 10;
   s21_decimal other_ten = {0};
   other_ten.bits[0] = 10000000;
-  other_ten.bits[3] = 0b00000000000001100000000000000000; // scale = 6
+  other_ten.bits[3] = 0b00000000000001100000000000000000;  // scale = 6
   s21_decimal other_ten_neg = {0};
   other_ten_neg.bits[0] = 10000000;
-  other_ten_neg.bits[3] = 0b10000000000001100000000000000000; // scale = 6
+  other_ten_neg.bits[3] = 0b10000000000001100000000000000000;  // scale = 6
   int random_pos_int = 2345;
   int random_neg_int = -2345;
   float random_pos_float = 6545.45456;
@@ -995,14 +1023,14 @@ END_TEST
 
 int main(void) {
   Suite *suite =
-      suite_create("S21_TEST"); // создание наборов тестов и с именем S21_TEST
+      suite_create("S21_TEST");  // создание наборов тестов и с именем S21_TEST
   SRunner *srunner = srunner_create(suite);
 
   TCase *s21add_test =
-      tcase_create("s21add"); // создание тестового примера с именем s21add
-  suite_add_tcase(suite, s21add_test); // добавление в тестовый набор
+      tcase_create("s21add");  // создание тестового примера с именем s21add
+  suite_add_tcase(suite, s21add_test);  // добавление в тестовый набор
   tcase_add_test(s21add_test,
-                 add_Test); // добавление тестовой функции в тестовый пример
+                 add_Test);  // добавление тестовой функции в тестовый пример
 
   TCase *s21sub_test = tcase_create("s21sub");
   suite_add_tcase(suite, s21sub_test);
